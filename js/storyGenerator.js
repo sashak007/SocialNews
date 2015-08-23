@@ -5,19 +5,12 @@ var request = require('request'),
 		twitter = require('twitter'),
 		express = require('express'),
 		exphbs  = require('express-handlebars'),
-		async   = require('async'),
-		handlebars = require('handlebars');
-
-handlebars.registerHelper('formattedTimestamp', function(timestamp) {
-  var time = timestamp.split('+0000');
-  return time[0] + time[1];
-
-});
+		async   = require('async');
 
 var twitterConfig = {
 								  consumer_key: process.env.TWITTER_CONSUMER_KEY,
 								  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-								  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+								  access_token_key: process.env.TWITTER_ACCESS_TOKEN,
 								  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 								};
 
@@ -51,9 +44,8 @@ var refreshApp = function(){
 	  	return function(callback) {
 				client.get('search/tweets', {q: topic}, function(error, tweets, response){
 				   if(!error && response.statusCode === 200){
-				   	  console.log('get topic tweets: ' + topic);
-				   		//topicTweets[topic] = tweets;
-				   		console.log(JSON.stringify(tweets));
+				   	  //console.log('get topic tweets: ' + topic);
+				   		//console.log(JSON.stringify(tweets));
 				   		callback(null, {"topic": topic, "tweets": tweets});
 				   } else {
 				   		if (error) {
@@ -87,9 +79,21 @@ refreshApp();
 //refresh every 30 seconds
 setInterval(refreshApp, 30000);
 
+var handlebarsConfig = {
+	defaultLayout: 'index', 
+	layoutsDir: './js/views/layouts',
+	helpers: {
+		formattedTimestamp: function(timestamp) {
+	  	var time = timestamp.split('+0000');
+	  	return time[0] + time[1];
+		}
+	}
+};
+var hbs = exphbs.create(handlebarsConfig);
+
 
 // templatizing 
-app.engine('html', exphbs({defaultLayout: 'index', layoutsDir: './js/views/layouts'}));
+app.engine('html', hbs.engine);
 app.set('views', './js/views');
 app.set('view engine', 'html');
 
@@ -98,7 +102,7 @@ app.get('/', function (req, res) {
 	if (typeof topicSelected === 'undefined') {
 		topicSelected = topicList[0];
 	}
-	console.log("topicSelected: " + topicSelected);
+	//console.log("topicSelected: " + topicSelected);
 	var	tweets = topicTweets[topicSelected].statuses;
 	// console.log('tweets: ' + JSON.stringify(tweets));
   res.render('template',{topic:topicList,tweets:tweets, active: topicSelected});
