@@ -1,0 +1,139 @@
+html, body{
+	height:100%;
+	margin: 0;
+	font-family: sans-serif;
+}
+
+div.clear{
+	clear: both;
+}
+
+div#main{
+	width: 96%;
+	max-width: 920px;
+	margin: auto;
+
+}
+
+h1{
+	margin: 0;
+	/*display: inline-block;*/
+	text-align: center;
+	font-family: 'Exo 2', sans-serif;
+	color: #fff;
+	text-shadow: 1px 1px #52576d;
+	/*#474a59;*/
+}
+	h2,h3{
+		font-family: 'Ubuntu', serif;
+	}
+
+header{
+	background: url('../images/header.png');
+	width:100%;
+}
+	header img#logo{
+		width:103.93px;
+		height:50px;
+	}
+
+ul{
+	list-style: none;
+	padding: 0px 20px 0px 0px;
+}
+a:link, a:visited {
+  text-decoration: none;
+  color: #323232;
+}
+a.topicLinks:hover {
+	font-weight: bold;
+	color: #fc9a24;
+}
+a:active {
+	font-weight: bold;
+	color: #fc9a24;
+  text-decoration: underline;
+}
+div.twitter-feed{
+	margin-left: 40%;
+	border: 1px solid #DADADA;
+	width: 500px;
+	height: 600px;
+	border-radius: 7px;
+	overflow: scroll;
+}
+	div#feedTitle{
+		height: 45px;
+		width: 500px;
+		border-bottom: 1px solid #DADADA;
+		border-radius: 7px 7px 0px 0px;
+		background-color: #fff;
+		position: absolute;
+	}
+	div#tweetContainer{
+		margin-top: 45px;
+	}
+	div#feedTitle h2{
+		float: left;
+		padding: 10px;
+		display: inline;
+		margin: 0px;
+	}
+	div#feedTitle img{
+		padding-left: 250px;
+		padding-top: 10px;
+		width: 30px;
+		height:30px;
+	}
+	a.tweetLink:hover{
+		font-weight: normal;
+		text-decoration: none;
+	}
+	div#create-tweet{
+		height: 45px;
+		width: 500px;
+		border-radius: 0px 0px 7px 7px;
+		background-color: #e6e6e6;
+		position: static;
+		bottom: 12px;
+	}
+	div#create-tweet input{
+		margin-top: 7px;
+		margin-left: 23px;
+		width: 450px;
+		height: 25px;
+		border-bottom: 1px solid #DADADA;
+		border-radius: 2px;
+		/*box-shadow: inset 0px 1px 4px #ECECEC;
+  	-moz-box-shadow: inset 0px 1px 4px #ECECEC;
+  	-webkit-box-shadow: inset 0px 1px 4px #ECECEC;*/
+	}
+	div.tweetItem{
+		border-bottom: 1px solid #DADADA;
+		padding: 10px;
+	}
+	div p.handle, h4, img.profPic{
+		float: left;
+		padding: 7px;
+		margin: 0px;
+	}
+	div p.handle{
+		color:#BDBDBD;
+	}
+	div p.tweet{
+		display: inline-block;
+	}
+	div p.timestamp{
+		font-size: 8px;
+		color: #BDBDBD;
+	}
+
+section#twtrFeed, section#topStories{
+	margin-top: 7%;
+	float: left;
+}
+/*section#twtrFeed a{
+	display: block;
+	padding: 50px;
+	/*margin: 10px;
+}*/

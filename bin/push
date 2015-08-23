@@ -1,0 +1,4 @@
+#!/bin/bash
+
+docker tag -f socialnews tutum.co/sashak007/socialnews
+docker push tutum.co/sashak007/socialnews
