@@ -5,7 +5,8 @@ var request = require('request'),
 		twitter = require('twitter'),
 		express = require('express'),
 		exphbs  = require('express-handlebars'),
-		async   = require('async');
+		async   = require('async'),
+		moment =  require('moment');
 
 var twitterConfig = {
 								  consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -84,8 +85,17 @@ var handlebarsConfig = {
 	layoutsDir: './js/views/layouts',
 	helpers: {
 		formattedTimestamp: function(timestamp) {
-	  	var time = timestamp.split('+0000');
-	  	return time[0] + time[1];
+
+			var hour = timestamp.split(" ");
+
+			var timePassed = moment().startOf(hour[3]).fromNow();
+
+			if (timePassed >= 24){
+		  	var time = timestamp.split('+0000');
+		  	return time[0] + time[1];
+	  	} else {
+	  		return timePassed;
+	  	}
 		}
 	}
 };

@@ -26,6 +26,7 @@
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
     "handlebars": "^3.0.3",
+    "moment": "^2.10.6",
     "request": "^2.61.0",
     "twitter": "^1.2.5"
   }

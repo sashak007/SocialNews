@@ -15,6 +15,57 @@ div#main{
 
 }
 
+@media screen and (max-width : 680px) {
+	div#main{
+		width: 90%;
+		max-width: 680px;
+		margin: auto;
+	}
+	section#topStories{
+		width: 90%;	
+	}
+	div.twitterFeed{
+		margin: 0px;
+	}
+
+}
+@media screen and (min-width : 760px) {
+	section#topStories{
+		width: 20%;
+	}
+	div.clear{
+		clear: both;
+	}
+	div.twitterFeed{
+		margin-left: 20%;
+	}
+}
+
+@media screen and (max-width : 550px) {
+	div.twitterFeed{
+		width: 100%;
+	}
+	div#feedTitle{
+		width: 90%;
+	}
+	div#feedTitle img{
+		padding-right: 2%;
+		float: right;
+	}
+}
+@media screen and (min-width : 551px) {
+		div.twitterFeed{
+			width: 500px;
+			height: 600px;
+		}
+		div#feedTitle{
+			width: 500px;
+		}
+		div#feedTitle img{
+			padding-left: 250px;
+		}
+}
+
 h1{
 	margin: 0;
 	/*display: inline-block;*/
@@ -32,11 +83,6 @@ header{
 	background: url('../images/header.png');
 	width:100%;
 }
-	header img#logo{
-		width:103.93px;
-		height:50px;
-	}
-
 ul{
 	list-style: none;
 	padding: 0px 20px 0px 0px;
@@ -54,17 +100,13 @@ a:active {
 	color: #fc9a24;
   text-decoration: underline;
 }
-div.twitter-feed{
-	margin-left: 40%;
+div.twitterFeed{
 	border: 1px solid #DADADA;
-	width: 500px;
-	height: 600px;
 	border-radius: 7px;
 	overflow: scroll;
 }
 	div#feedTitle{
 		height: 45px;
-		width: 500px;
 		border-bottom: 1px solid #DADADA;
 		border-radius: 7px 7px 0px 0px;
 		background-color: #fff;
@@ -80,7 +122,6 @@ div.twitter-feed{
 		margin: 0px;
 	}
 	div#feedTitle img{
-		padding-left: 250px;
 		padding-top: 10px;
 		width: 30px;
 		height:30px;
@@ -89,7 +130,7 @@ div.twitter-feed{
 		font-weight: normal;
 		text-decoration: none;
 	}
-	div#create-tweet{
+	div#createTweet{
 		height: 45px;
 		width: 500px;
 		border-radius: 0px 0px 7px 7px;
@@ -97,16 +138,16 @@ div.twitter-feed{
 		position: static;
 		bottom: 12px;
 	}
-	div#create-tweet input{
+	div#createTweet input{
 		margin-top: 7px;
 		margin-left: 23px;
 		width: 450px;
 		height: 25px;
 		border-bottom: 1px solid #DADADA;
 		border-radius: 2px;
-		/*box-shadow: inset 0px 1px 4px #ECECEC;
+		box-shadow: inset 0px 1px 4px #ECECEC;
   	-moz-box-shadow: inset 0px 1px 4px #ECECEC;
-  	-webkit-box-shadow: inset 0px 1px 4px #ECECEC;*/
+  	-webkit-box-shadow: inset 0px 1px 4px #ECECEC;
 	}
 	div.tweetItem{
 		border-bottom: 1px solid #DADADA;
@@ -128,10 +169,15 @@ div.twitter-feed{
 		color: #BDBDBD;
 	}
 
-section#twtrFeed, section#topStories{
+section#tweetFeed, section#topStories{
 	margin-top: 7%;
 	float: left;
 }
+/*	section#topStories{
+		width: 20%;
+	}*/
+
+
 /*section#twtrFeed a{
 	display: block;
 	padding: 50px;
