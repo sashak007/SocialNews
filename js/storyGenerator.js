@@ -36,8 +36,13 @@ var refreshApp = function(){
 	    });
 
 	  } else {
+	  	
 	  	console.log(error);
-			console.log('statusCode: ' + response.statusCode);
+	  	
+	  	if(response){
+	  		console.log('statusCode: ' + response.statusCode);
+	  	}
+			
 	  }
 
 	  var topicListTasks = tempTopicList.map(function(topic) {
