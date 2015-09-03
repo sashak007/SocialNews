@@ -4,9 +4,11 @@ var request = require('request'),
 		cheerio = require('cheerio'),
 		twitter = require('twitter'),
 		express = require('express'),
+		http    = require('http'),
 		exphbs  = require('express-handlebars'),
 		async   = require('async'),
-		moment =  require('moment');
+		io 			= require('socket.io'),
+		moment  = require('moment');
 
 var twitterConfig = {
 								  consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -16,6 +18,8 @@ var twitterConfig = {
 								};
 
 var app = express(),
+    server = http.createServer(app),
+		live = io(server),
 		client = new twitter(twitterConfig);
 
 var topicList = [],
@@ -25,12 +29,12 @@ var refreshApp = function(){
 	request('https://news.google.com/', function (error, response, body) {
   	var tempTopicList = [];
 	  if (!error && response.statusCode === 200) {
-	    
+
 
 	    $ = cheerio.load(body);
 
 	    $('div.topic a').each(function(index,elem){
-	    	
+
 	    	tempTopicList.push($(elem).text());
 
 	    });
@@ -40,13 +44,11 @@ var refreshApp = function(){
 			console.log('statusCode: ' + response.statusCode);
 	  }
 
-	  var topicListTasks = tempTopicList.map(function(topic) {
-	  	 
+	  var topicListIterativeTasks = tempTopicList.map(function(topic) {
+
 	  	return function(callback) {
 				client.get('search/tweets', {q: topic}, function(error, tweets, response){
 				   if(!error && response.statusCode === 200){
-				   	  //console.log('get topic tweets: ' + topic);
-				   		//console.log(JSON.stringify(tweets));
 				   		callback(null, {"topic": topic, "tweets": tweets});
 				   } else {
 				   		if (error) {
@@ -55,12 +57,12 @@ var refreshApp = function(){
 				   			callback(new Error("bad status code: " + resonse.statusCode), null);
 				   		}
 				   }
-				
+
 				});
 			};
 		});
 
-		async.parallel(topicListTasks, function(error, results) {
+		async.parallel(topicListIterativeTasks, function(error, results) {
 			if(!error) {
 				var tempTopicTweets = {};
 				results.forEach(function(result) {
@@ -68,6 +70,11 @@ var refreshApp = function(){
 				});
 				topicList = tempTopicList;
 				topicTweets = tempTopicTweets;
+
+				console.log('updateTweets');
+				// sends update to the client
+				live.sockets.emit('updatedTweets', topicTweets);
+
 			} else {
 				console.error(error);
 			}
@@ -75,13 +82,13 @@ var refreshApp = function(){
 	});
 }
 
-
-refreshApp();
 //refresh every 30 seconds
+refreshApp();
 setInterval(refreshApp, 30000);
 
+// templatizing with handlebars
 var handlebarsConfig = {
-	defaultLayout: 'index', 
+	defaultLayout: 'index',
 	layoutsDir: './js/views/layouts',
 	helpers: {
 		formattedTimestamp: function(timestamp) {
@@ -99,10 +106,9 @@ var handlebarsConfig = {
 		}
 	}
 };
+
 var hbs = exphbs.create(handlebarsConfig);
 
-
-// templatizing 
 app.engine('html', hbs.engine);
 app.set('views', './js/views');
 app.set('view engine', 'html');
@@ -112,11 +118,11 @@ app.get('/', function (req, res) {
 	if (typeof topicSelected === 'undefined') {
 		topicSelected = topicList[0];
 	}
-	//console.log("topicSelected: " + topicSelected);
+
 	var	tweets = topicTweets[topicSelected].statuses;
-	// console.log('tweets: ' + JSON.stringify(tweets));
+
   res.render('template',{topic:topicList,tweets:tweets, active: topicSelected});
 });
 
 app.use(express.static('public'));
-app.listen(3000);
+server.listen(3000);
