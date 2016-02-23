@@ -1,5 +1,5 @@
 var refreshPage = function(){
-	location.reload();
+  location.reload();
 }
 
 var socket = io.connect('http://192.168.59.103:3000');

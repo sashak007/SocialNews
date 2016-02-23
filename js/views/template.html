@@ -1,39 +1,38 @@
 <header>
-	<!-- <img id="logo" src="images/sn-logo.png" /> -->
-	<h1>Social News</h1>
+  <h1>Social News</h1>
 </header>
 <div id="main">
-	
-	<section id="topStories"> 
-	<h3>Top Stories</h3>
-  	<ul>
-  		{{#each topic}}
-  		<li class="topic"><a class="topicLinks" href="?topic={{this}}">{{this}}</a></li>
-  		{{/each}}
-  	</ul>
-  	<input id="refreshBtn" type="submit" value="Refresh" onClick="refreshPage()">
-  	<div class="clear"></div>
-	</section>
-	<section id="tweetFeed">
-		<div class="twitterFeed">
-			<div id="feedTitle">
-				<h2>Top Story Tweets</h2>
-				<img src="images/TwitterLogo.png" />
-			</div>
-			<div id="tweetContainer">
-				{{#each tweets}}
-					<div class="tweetItem">
-						<a class="tweetLink" href="https://twitter.com/{{this.user.screen_name}}/status/{{this.id_str}}">
-						<img class="profPic" src="{{this.user.profile_image_url_https}}">
-						<h4>{{this.user.name}}</h4>
-						<p class="handle">@{{this.user.screen_name}}</p>
-						<!-- <div class="clear"></div> -->
-						<p class="tweet">{{this.text}}</p>
-						<p class="timestamp">{{formattedTimestamp this.created_at}}</p>
-						</a>
-					</div>
-				{{/each}}
-			</div>
-	</div>
+  
+  <section id="topStories"> 
+  <h3>Top Stories</h3>
+    <ul>
+      {{#each topic}}
+      <li class="topic"><a class="topicLinks" href="?topic={{this}}">{{this}}</a></li>
+      {{/each}}
+    </ul>
+    <input id="refreshBtn" type="submit" value="Refresh" onClick="refreshPage()">
+    <div class="clear"></div>
+  </section>
+  <section id="tweetFeed">
+    <div class="twitterFeed">
+      <div id="feedTitle">
+        <h2>Top Story Tweets</h2>
+        <img src="images/TwitterLogo.png" />
+      </div>
+      <div id="tweetContainer">
+        {{#each tweets}}
+          <div class="tweetItem">
+            <a class="tweetLink" href="https://twitter.com/{{this.user.screen_name}}/status/{{this.id_str}}">
+            <img class="profPic" src="{{this.user.profile_image_url_https}}">
+            <h4>{{this.user.name}}</h4>
+            <p class="handle">@{{this.user.screen_name}}</p>
+            <!-- <div class="clear"></div> -->
+            <p class="tweet">{{this.text}}</p>
+            <p class="timestamp">{{formattedTimestamp this.created_at}}</p>
+            </a>
+          </div>
+        {{/each}}
+      </div>
+  </div>
 </section>
 </div>
